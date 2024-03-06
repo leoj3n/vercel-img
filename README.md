@@ -5,6 +5,12 @@
 Automatically transform local images into multiple widths and next-gen formats, then render a
 minimally invasive LQIP-included HTML representation into your SvelteKit project.
 
+Also allow opting into using Vercel image optimization for the transformed image, instead of
+generating all permutations locally.
+
+See the [vercel-img](https://vercel-img-weld.vercel.app/#vercel) demo site for more information
+about the Vercel addition.
+
 Includes special effects:
 
 - [x] Fade-in on image reveal

@@ -31,7 +31,10 @@ function lqipToBackground(lqip) {
 
 function srcsetVercel(src = '', widths = [], quality = 100) {
   if (typeof widths === 'string') {
-    widths = widths.split(', ').map((x) => +x)
+    widths = widths
+      .replaceAll(' ')
+      .split(',')
+      .map((x) => +x)
   }
 
   return widths

@@ -1,7 +1,7 @@
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import adapter from '@sveltejs/adapter-vercel'
 import { readFileSync } from 'node:fs'
-import { allowedSizes } from './src/lib/optimized-image-sizes.js'
+import allowedSizes from './src/lib/allowed-vercel-image-sizes.js'
 
 const { version: name } = JSON.parse(readFileSync(new URL('package.json', import.meta.url), 'utf8'))
 
