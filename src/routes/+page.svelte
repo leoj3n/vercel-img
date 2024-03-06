@@ -65,10 +65,10 @@ export default defineConfig({
   <p>Anywhere in your <code>svelte</code> app:</p>
   <pre><code
       >{esc(`
-<script>
+\u003c\u0073\u0063\u0072\u0069\u0070\u0074\u003e
   import cat from '$lib/assets/cat.jpg?as=run'
-  import \u0049\u006d\u0067 from '@leoj3n/vercel-img'
-</script>
+  import Img from '@leoj3n/vercel-img'
+\u003c\u002f\u0073\u0063\u0072\u0069\u0070\u0074\u003e
 
 <Img class="cool kitty" src={cat} alt="Very meow" />`)}</code
     ></pre>
