@@ -19,7 +19,10 @@ const config = {
       handleHttpError: ({ path, referrer, message }) => {
         // ignore vercel optimized images
         if (path.startsWith('/_vercel/image')) {
-          console.info('Info: Handled the expected "Not Found" 404 for /_vercel/image CDN ...', referrer)
+          console.info(
+            'Info: Handled the expected "Not Found" 404 for /_vercel/image CDN ...',
+            referrer
+          )
           return
         }
 
