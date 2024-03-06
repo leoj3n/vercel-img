@@ -1,6 +1,7 @@
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import adapter from '@sveltejs/adapter-vercel'
 import { readFileSync } from 'node:fs'
+import { allowedSizes } from './src/lib/optimized-image-sizes.js'
 
 const { version: name } = JSON.parse(readFileSync(new URL('package.json', import.meta.url), 'utf8'))
 
@@ -11,7 +12,7 @@ const config = {
       images: {
         minimumCacheTTL: 300,
         formats: ['image/avif', 'image/webp'],
-        sizes: process.env.PUBLIC_IMAGE_OPTIMIZATION_SIZES?.split(', ').map((x) => +x) || [],
+        sizes: allowedSizes,
         domains: []
       }
     }),

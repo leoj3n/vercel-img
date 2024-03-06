@@ -12,7 +12,8 @@ import { version } from '$app/environment'
 import testSingle from './assets/640/01.jpg?w=80&h=80&format=jpg&as=run:0'
 import testFallback from './assets/640/01.jpg?h=80'
 import testProfile from './assets/640/01.jpg?as=run2'
-import { PUBLIC_IMAGE_OPTIMIZATION_SIZES } from '$env/static/public'
+// import { PUBLIC_IMAGE_OPTIMIZATION_SIZES } from '$env/static/public'
+import { allowedSizes } from '$lib/optimized-image-sizes.js'
 
 const modules = import.meta.glob('./assets/640/*.jpg', {
   import: 'default',
@@ -86,7 +87,7 @@ export default defineConfig({
   src={hero}
   alt="cat"
   preload={true}
-  widths={PUBLIC_IMAGE_OPTIMIZATION_SIZES}
+  widths={allowedSizes}
 />
 
 <div class="prose mx-auto mb-8 px-4">
