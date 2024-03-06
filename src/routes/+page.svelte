@@ -67,7 +67,7 @@ export default defineConfig({
       >{esc(`
 <script>
   import cat from '$lib/assets/cat.jpg?as=run'
-  import Img from '@leoj3n/vercel-img'
+  import \u0049\u006d\u0067 from '@leoj3n/vercel-img'
 </script>
 
 <Img class="cool kitty" src={cat} alt="Very meow" />`)}</code
