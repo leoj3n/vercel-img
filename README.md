@@ -1,6 +1,6 @@
 # vercel-img
 
-> High-performance responsive/progressive images for SvelteKit.
+> High-performance responsive/progressive images for SvelteKit with the option to use Vercel optimized images.
 
 Automatically transform local images into multiple widths and next-gen formats, then render a
 minimally invasive LQIP-included HTML representation into your SvelteKit project.
