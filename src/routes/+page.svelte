@@ -77,7 +77,7 @@ ${script_close}
     ></pre>
   <h2 id="vercel">Vercel</h2>
   <p>
-    If <code>widths</code> is passed a prop to <code>Img</code> then a single <code>img</code>
+    If <code>widths</code> is passed to <code>Img</code> then a single <code>img</code>
     element will be generated, and it will have an <code>srcset</code> with matching
     <code>widths</code>
     linking to Vercel like <code>/_vercel/image?url=...&w=480&q=100 480w</code> (note that in dev
