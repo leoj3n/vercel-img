@@ -4,7 +4,9 @@
 
 ## Vercel
 
-In addition to being able to generate all permutations locally, this fork makes it possible to opt into using Vercel image optimization for the transformed image. The primary benefit of not having to rely on the `<picture>` element is that it unlocks the ability to preload `srcset` in `head`.
+In addition to being able to generate all permutations locally, this fork makes it possible to opt into using Vercel image optimization for the transformed image.
+
+The primary benefit of not having to rely on the `<picture>` element is that it unlocks the ability to preload `srcset` in `head`.
 
 See the [vercel-img](https://vercel-img-weld.vercel.app/#vercel) demo site for more information about the Vercel addition.
 
