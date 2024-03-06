@@ -15,18 +15,18 @@ const config = {
         domains: []
       }
     }),
-		prerender: {
-			handleHttpError: ({ path, referrer, message }) => {
-				// ignore vercel optimized images
-				if (path.startsWith('/_vercel/image')) {
-					console.info('Info: Handled the expected "Not Found" 404 for /_vercel/image CDN ...');
-					return;
-				}
+    prerender: {
+      handleHttpError: ({ path, referrer, message }) => {
+        // ignore vercel optimized images
+        if (path.startsWith('/_vercel/image')) {
+          console.info('Info: Handled the expected "Not Found" 404 for /_vercel/image CDN ...', referrer)
+          return
+        }
 
-				// otherwise fail the build
-				throw new Error(message);
-			}
-		},
+        // otherwise fail the build
+        throw new Error(message)
+      }
+    },
     version: { name }
   },
   preprocess: [vitePreprocess({})]
