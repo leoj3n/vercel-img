@@ -102,6 +102,13 @@ ${script_close}
   <pre><code>{esc(`<Img src={hero} alt="cat" widths={PUBLIC_IMAGE_OPTIMIZATION_SIZES} />`)}</code
     ></pre>
   <p>
+    Note: Inspect the above image to see <code>srcset</code> using
+    <code>/_vercel/image?url=...</code>. Also check the document <code>head</code> and look for
+    <code>&lt;link as="image" rel="preload" ...</code>
+    to see that this image is also preloaded using the same <code>srcset</code>
+    values.
+  </p>
+  <p>
     For Vercel image optimization to work, the <code>widths</code> passed in to <code>Img</code>
     must match what you have put in your
     <code>vercel.json</code> for <code>sizes</code>:
