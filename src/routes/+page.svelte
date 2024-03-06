@@ -22,6 +22,9 @@ const modules = import.meta.glob('./assets/640/*.jpg', {
 const esc = (i) => i
 const images = Object.entries(modules).map((i) => i[1])
 let selected = 0
+
+const script_open = '\u003c\u0073\u0063\u0072\u0069\u0070\u0074\u003e'
+const script_close = '\u003c\u002f\u0073\u0063\u0072\u0069\u0070\u0074\u003e'
 </script>
 
 <div class="test-basic relative mb-16">
@@ -65,10 +68,10 @@ export default defineConfig({
   <p>Anywhere in your <code>svelte</code> app:</p>
   <pre><code
       >{esc(`
-\u003c\u0073\u0063\u0072\u0069\u0070\u0074\u003e
+${script_open}
   import cat from '$lib/assets/cat.jpg?as=run'
   import Img from '@leoj3n/vercel-img'
-\u003c\u002f\u0073\u0063\u0072\u0069\u0070\u0074\u003e
+${script_close}
 
 <Img class="cool kitty" src={cat} alt="Very meow" />`)}</code
     ></pre>
@@ -208,10 +211,11 @@ export default config
   </p>
   <pre><code
       >{esc(`
-<script>
+${script_open}
   import hero from './assets/hero.jpg?tint=ffaa22&as=run'
   import allowedSizes from '$lib/allowed-vercel-image-sizes.js'
-</script>
+${script_close}
+
 <Img
   alt="cat"
   src={hero}
