@@ -1,4 +1,5 @@
 <script>
+import { page } from '$app/stores'
 import Picture from './Picture.svelte'
 import { len, lqipToBackground, srcsetVercel } from './utils.js'
 
@@ -42,7 +43,7 @@ $: if (widths) {
     .map((set) => {
       let pair = set.split(' ')
       return {
-        src: pair[0],
+        src: pair[0].replace($page.url.origin, ''),
         w: pair[1].replace('w', '')
       }
     })

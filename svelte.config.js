@@ -12,7 +12,7 @@ const config = {
         minimumCacheTTL: 300,
         formats: ['image/avif', 'image/webp'],
         sizes: process.env.PUBLIC_IMAGE_OPTIMIZATION_SIZES?.split(', ').map((x) => +x) || [],
-        domains: ['vercel-img-weld.vercel.app']
+        domains: []
       }
     }),
     prerender: {
