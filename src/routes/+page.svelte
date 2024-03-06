@@ -189,7 +189,7 @@ export default config
       >{esc(`
 import adapter from '@sveltejs/adapter-vercel'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
-import allowedSizes from './src/lib/allowed-vercel-image-sizes.js'
+import allowedSizes from './src/lib/allowed-vercel-image-sizes'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -220,7 +220,7 @@ export default config
       >{esc(`
 ${script_open}
   import hero from './assets/hero.jpg?tint=ffaa22&as=run'
-  import allowedSizes from '$lib/allowed-vercel-image-sizes.js'
+  import allowedSizes from '$lib/allowed-vercel-image-sizes'
 ${script_close}
 
 <Img
