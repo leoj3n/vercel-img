@@ -113,10 +113,7 @@ The image component renders into:
 
 ### Change default widths/formats
 
-By default, `vercel-img` generates 9 variants of an original full-sized image - at `480/1024/1920`
-widths in `avif/webp/jpg` formats; and a `16px webp/base64` low-quality image placeholder (LQIP).
-
-To change this globally, edit your `vite.config.js`:
+`vercel-img` does not set any global default image types, or widths, to generate for a passed image. You change this globally, by editing your `vite.config.js`:
 
 ```js
 import ...
@@ -127,7 +124,7 @@ export default defineConfig({
     sveltekit(),
     imagetools({
       profiles: {
-        // Now we change `run` to generate 4 variants instead: 640/1280w in webp/jpg
+        // Now we change `run` to generate 4 variants: 640/1280w in webp/jpg
         run: new URLSearchParams('w=640;1280&format=webp;jpg')
       }
     })
