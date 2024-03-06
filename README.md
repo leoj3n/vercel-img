@@ -1,4 +1,4 @@
-# svelte-img
+# vercel-img
 
 > High-performance responsive/progressive images for SvelteKit.
 
@@ -10,14 +10,14 @@ Includes special effects:
 - [x] Fade-in on image reveal
 - [x] Parallax vertical scroll effect
 
-Hope you like cats. Demo: https://zerodevx.github.io/svelte-img/
+Hope you like cats. Demo: https://zerodevx.github.io/vercel-img/
 
 ## Install
 
 Install the package:
 
 ```
-$ npm i -D @zerodevx/svelte-img
+$ npm i -D @leoj3n/vercel-img
 ```
 
 Add `imagetools` plugin into your `vite.config.js`:
@@ -25,7 +25,7 @@ Add `imagetools` plugin into your `vite.config.js`:
 ```js
 import { defineConfig } from 'vite'
 import { sveltekit } from '@sveltejs/kit/vite'
-import { imagetools } from '@zerodevx/svelte-img/vite'
+import { imagetools } from '@leoj3n/vercel-img/vite'
 
 export default defineConfig({
   plugins: [sveltekit(), imagetools()]
@@ -66,7 +66,7 @@ Use anywhere in your Svelte app:
 <script>
   // Import original full-sized image with `?as=run` query param
   import cat from '$lib/assets/cat.jpg?as=run'
-  import Img from '@zerodevx/svelte-img'
+  import Img from '@leoj3n/vercel-img'
 </script>
 
 <Img class="cool kitty" src="{cat}" alt="Very meow" />
@@ -105,7 +105,7 @@ The image component renders into:
 
 ### Change default widths/formats
 
-By default, `svelte-img` generates 9 variants of an original full-sized image - at `480/1024/1920`
+By default, `vercel-img` generates 9 variants of an original full-sized image - at `480/1024/1920`
 widths in `avif/webp/jpg` formats; and a `16px webp/base64` low-quality image placeholder (LQIP).
 
 To change this globally, edit your `vite.config.js`:
@@ -167,7 +167,7 @@ Widths/formats can be applied to a particular image. From your `.svelte` file:
 <script>
   // We override defaults to generate 4 variants: 720/1560w in webp/jpg
   import src from '$lib/a/cat.jpg?w=720;1560&format=webp;jpg&as=run'
-  import Img from '@zerodevx/svelte-img'
+  import Img from '@leoj3n/vercel-img'
 </script>
 
 <Img {src} alt="cat" />
@@ -183,7 +183,7 @@ If just **one** variant is generated, then only the `<img>` tag renders, so:
 <script>
   // Generate only 1 variant: 640x640 in jpg
   import src from '$lib/a/cat.jpg?w=640&h=640&format=jpg&as=run'
-  import Img from '@zerodevx/svelte-img'
+  import Img from '@leoj3n/vercel-img'
 </script>
 
 <Img {src} alt="cat" />
@@ -217,7 +217,7 @@ For a dominant single-colour background, set `?as=run:1`, so:
 ```html
 <script>
   import src from '$lib/a/cat.jpg?as=run:1'
-  import Img from '@zerodevx/svelte-img'
+  import Img from '@leoj3n/vercel-img'
 </script>
 
 <!-- Render img with dominant colour background -->
@@ -245,7 +245,7 @@ of transformation directives offered by
 <script>
   // Generate all 9 variants at fixed 600px height
   import src from '$lib/a/cat.jpg?h=600&fit=cover&normalize&as=run'
-  import Img from '@zerodevx/svelte-img'
+  import Img from '@leoj3n/vercel-img'
 </script>
 
 <Img {src} alt="cat" />
@@ -261,7 +261,7 @@ select when those conditions are true. Read up more on the
 ```html
 <script>
   import src from '$lib/a/cat.jpg?w=480;800as=run
-  import Img from '@zerodevx/svelte-img'
+  import Img from '@leoj3n/vercel-img'
 </script>
 
 <!-- If viewport is <=600px, use 480px as viewport width -->
@@ -270,7 +270,7 @@ select when those conditions are true. Read up more on the
 
 ### Lazy loading
 
-`svelte-img` utilises the browser's native lazy loading capability by setting the `loading="lazy"`
+`vercel-img` utilises the browser's native lazy loading capability by setting the `loading="lazy"`
 attribute on the rendered `<img>` tag by default. This is supported by
 [most modern browsers](https://caniuse.com/loading-lazy-attr). To load an image eagerly instead:
 
@@ -278,7 +278,7 @@ attribute on the rendered `<img>` tag by default. This is supported by
 ```html
 <script>
   import src from '$lib/a/cat.jpg?as=run'
-  import Img from '@zerodevx/svelte-img'
+  import Img from '@leoj3n/vercel-img'
 </script>
 
 <Img {src} alt="cat" loading="eager" />
@@ -291,7 +291,7 @@ Use Vite's `import.meta.glob` [feature](https://vitejs.dev/guide/features.html#g
 <!-- prettier-ignore -->
 ```html
 <script>
-  import Img from '@zerodevx/svelte-img'
+  import Img from '@leoj3n/vercel-img'
 
   const modules = import.meta.glob('$lib/a/cats/*.*', {
     import: 'default',
@@ -308,12 +308,12 @@ Use Vite's `import.meta.glob` [feature](https://vitejs.dev/guide/features.html#g
 
 ### Remote images from an API
 
-Use the `svelte-img` component on its own by passing a `src` object, like so:
+Use the `vercel-img` component on its own by passing a `src` object, like so:
 
 <!-- prettier-ignore -->
 ```html
 <script>
-import Img from '@zerodevx/svelte-img'
+import Img from '@leoj3n/vercel-img'
 
 const src = {
   img: { src: 'path/to/img', w: 1920, h: 1080 },
@@ -342,7 +342,7 @@ for me, but you can apply your own using CSS.
 <!-- prettier-ignore -->
 ```html
 <script>
-  import Img from '@zerodevx/svelte-img'
+  import Img from '@leoj3n/vercel-img'
   import src from '$lib/a/cat.jpg?as=run'
   import { onMount } from 'svelte'
 
@@ -384,7 +384,7 @@ Reveal images with a fade-in effect (aka medium.com) when they are loaded **and*
 ```html
 <script>
   import src from '$lib/a/cat.jpg?as=run'
-  import { FxReveal as Img } from '@zerodevx/svelte-img'
+  import { FxReveal as Img } from '@leoj3n/vercel-img'
 </script>
 
 <Img class="my-img" {src} alt="cat" />
@@ -417,7 +417,7 @@ The default factor is `0.75`.
 ```html
 <script>
   import src from '$lib/a/cat.jpg?as=run'
-  import { FxParallax as Img } from '@zerodevx/svelte-img'
+  import { FxParallax as Img } from '@leoj3n/vercel-img'
 </script>
 
 <Img class="my-img" factor="0.5" {src} alt="cat" />
@@ -447,7 +447,7 @@ $ npm run test
 
 ## Changelog
 
-Please refer to the [releases](https://github.com/zerodevx/svelte-img/releases) page.
+Please refer to the [releases](https://github.com/leoj3n/vercel-img/releases) page.
 
 ## License
 

@@ -5,7 +5,7 @@ import { dev } from '$app/environment'
 </script>
 
 <svelte:head>
-  <title>DEMO | svelte-img</title>
+  <title>DEMO | vercel-img</title>
   <meta
     name="description"
     content="High-performance responsive/progressive images for SvelteKit."

@@ -25,15 +25,13 @@ function run(cfg) {
 
 function main({
   profiles = {},
-  // deprecated - to remove in next major
-  runDefaultDirectives = new URLSearchParams('w=480;1024;1920&format=avif;webp;jpg'),
   defaultDirectives = new URLSearchParams(),
   exclude = '{build,dist,node_modules}/**/*',
   extendOutputFormats = (i) => i, //noop
   ...rest
 } = {}) {
   const dict = {
-    run: runDefaultDirectives,
+    run: defaultDirectives,
     ...profiles
   }
   return imagetools({

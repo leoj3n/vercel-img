@@ -1,3 +1,5 @@
+import { dev } from '$app/environment'
+
 /** @type {IntersectionObserver} */
 let observer
 
@@ -27,4 +29,20 @@ function lqipToBackground(lqip) {
   return lqip[0] === '#' ? lqip : `url(data:image/webp;base64,${lqip}) no-repeat center/cover`
 }
 
-export { observe, len, lqipToBackground }
+function srcsetVercel(src = '', widths = [], quality = 100) {
+  if (typeof widths === 'string') {
+    widths = widths.split(', ').map((x) => +x)
+  }
+
+  return widths
+    .slice()
+    .sort((a, b) => a - b)
+    .map((width) => {
+      let url = `/_vercel/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality}`
+      if (dev) url = `${src}`
+      return `${url} ${width}w`
+    })
+    .join(', ')
+}
+
+export { observe, len, lqipToBackground, srcsetVercel }

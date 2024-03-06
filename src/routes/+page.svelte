@@ -1,6 +1,6 @@
 <script>
 /* eslint-disable no-useless-escape */
-import hero from './assets/hero.jpg?w=480;1024;1920;2560;h=720&as=run'
+import hero from './assets/hero.jpg?w=480;1024;1920;2560;h=720&tint=ffaa22&as=run'
 import i1 from './assets/1920/1.jpg?h=720&as=run'
 import i2 from './assets/1920/2.jpg?h=720&as=run:1'
 import i3 from './assets/1920/3.jpg?h=720&as=run'
@@ -12,6 +12,7 @@ import { version } from '$app/environment'
 import testSingle from './assets/640/01.jpg?w=80&h=80&format=jpg&as=run:0'
 import testFallback from './assets/640/01.jpg?h=80'
 import testProfile from './assets/640/01.jpg?as=run2'
+import { PUBLIC_IMAGE_OPTIMIZATION_SIZES } from '$env/static/public'
 
 const modules = import.meta.glob('./assets/640/*.jpg', {
   import: 'default',
@@ -27,10 +28,10 @@ let selected = 0
   <Img class="h-[32rem] w-full object-cover" src={hero} alt="cat" loading="eager" />
   <div class="absolute inset-0 flex flex-col justify-center">
     <div class="prose mx-auto px-4 text-center prose-h1:text-white prose-p:text-white">
-      <h1>svelte-img</h1>
+      <h1>vercel-img</h1>
       <div class="badge badge-neutral ml-2 font-mono text-xs">v{version}</div>
-      <p>High-performance responsive/progressive images for SvelteKit.</p>
-      <a class="btn btn-primary" href="https://github.com/zerodevx/svelte-img" target="_blank">
+      <p>Fork of svelte-img for use in conjunction with Vercel optimized images.</p>
+      <a class="btn btn-primary" href="https://github.com/leoj3n/vercel-img" target="_blank">
         <span class="icon-[mdi--github] h-6 w-6" />
         Visit Github Repo
       </a>
@@ -44,12 +45,12 @@ let selected = 0
     images, served in multiple widths and next-gen formats.
   </blockquote>
   <h2>Install</h2>
-  <pre><code>{esc(`$ npm i -D @zerodevx/svelte-img`)}</code></pre>
+  <pre><code>{esc(`$ npm i -D @leoj3n/vercel-img`)}</code></pre>
   <p>Add <code>imagetools</code> plugin into your <code>vite.config.js</code>:</p>
   <pre><code
       >{esc(`import { defineConfig } from 'vite'
 import { sveltekit } from '@sveltejs/kit/vite'
-import { imagetools } from '@zerodevx/svelte-img/vite'
+import { imagetools } from '@leoj3n/vercel-img/vite'
 
 export default defineConfig({
   plugins: [sveltekit(), imagetools()]
@@ -60,11 +61,98 @@ export default defineConfig({
   <pre><code
       >{esc(`<script>
   import cat from '$lib/assets/cat.jpg?as=run'
-  import Img from '@zerodevx/svelte-img'
+  import Img from '@leoj3n/vercel-img'
 <\/script>
 
 <Img class="cool kitty" src={cat} alt="Very meow" />`)}</code
     ></pre>
+  <h2>Vercel</h2>
+  <p>
+    If <code>widths</code> is passed a prop to <code>Img</code> then a single <code>img</code>
+    element will be generated, and it will have an <code>srcset</code> with matching
+    <code>widths</code>
+    linking to Vercel like <code>/_vercel/image?url=...&w=480&q=100 480w</code> (note that in dev
+    mode the link will be to the local image for all widths as they may not exist on Vercel until
+    deployed). You can additionally pass <code>quality</code> for Vercel to consume. Any image type
+    variants will be ignored, and if there are size variants, the largest will be used. See
+    <a href="https://vercel.com/docs/image-optimization#optimized-url-format"
+      >Image Optimization with Vercel</a
+    > for more info about the URL syntax.
+  </p>
+</div>
+
+<Img
+  class="mx-auto mb-16 h-[32rem] w-full max-w-[1920px] object-cover"
+  src={hero}
+  alt="cat"
+  preload={true}
+  widths={PUBLIC_IMAGE_OPTIMIZATION_SIZES}
+/>
+
+<div class="prose mx-auto mb-8 px-4">
+  <pre><code
+      >{esc(`<Img class="mx-auto mb-16 h-[32rem] w-full max-w-[1920px] object-cover" src={hero} alt="cat" widths={PUBLIC_IMAGE_OPTIMIZATION_SIZES} />
+    `)}</code
+    ></pre>
+  <p>
+    For Vercel, the widths passed in to <code>Img</code> must match what you have put in your
+    <code>vercel.json</code>:
+  </p>
+  <pre><code
+      >{esc(`{
+      "sizes": [256, 640, 1080, 2048, 3840],
+      "routes": [
+        {
+          "src": "/immutable/.+",
+          "headers": {
+            "cache-control": "public, immutable, max-age=31536000"
+          }
+        }
+      ]
+    }
+    `)}</code
+    ></pre>
+  <p>
+    Or <code>svelte.config.js</code> when using <code>@sveltejs/adapter-vercel</code>:
+  </p>
+  <pre><code
+      >{esc(`import adapter from '@sveltejs/adapter-vercel';
+    import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+    
+    /** @type {import('@sveltejs/kit').Config} */
+    const config = {
+      preprocess: vitePreprocess(),
+      kit: {
+        adapter: adapter({
+          images: {
+            minimumCacheTTL: 300,
+            formats: ['image/avif', 'image/webp'],
+            sizes: process.env.PUBLIC_IMAGE_OPTIMIZATION_SIZES?.split(', ').map(x => +x) || [],
+            domains: []
+          }
+        }),
+        alias: {
+          $static: './static'
+        }
+      }
+    };
+    
+    export default config;
+    `)}</code
+    ></pre>
+  <p>
+    You can read more about the <a
+      href="https://vercel.com/docs/projects/project-configuration#images"
+      >Vercel image value definitions</a
+    >. Notice we are using an environment variable to get the allowed Vercel optimization sizes so
+    we don't have to repeat and can update in one place. This variable is defined in
+    <code>.env</code>
+    like that <code>PUBLIC_IMAGE_OPTIMIZATION_SIZES="480, 1024, 1920, 2560"</code>. The
+    <code>Img</code>
+    component will split on any comma-space-separated string passed as <code>widths</code> in the
+    same way as can be seen in the config above. You may also pass an array of numbers as
+    <code>widths</code>.
+  </p>
   <h2>Showcase</h2>
   <p>
     By default, the original image is transformed into 9 variants - <code>480/1024/1920</code>
@@ -146,7 +234,7 @@ export default defineConfig({
 
 <div class="prose mx-auto mb-16 px-4">
   <blockquote>
-    The <code>svelte-img</code> component tries, as much as possible, to be a drop-in replacement
+    The <code>vercel-img</code> component tries, as much as possible, to be a drop-in replacement
     for the native HTML <code>{esc(`<img>`)}</code> tag.
   </blockquote>
   <p>
